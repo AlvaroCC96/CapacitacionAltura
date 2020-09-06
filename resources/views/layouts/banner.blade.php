@@ -40,7 +40,7 @@
             <ul class="navbar-nav ">
                 <ul class="navbar-nav ">
                     <li class="nav-item active ">
-                        <a class="nav-link text-white font-weight-bold btn-lg" >Evaluación Diagnostico</a>
+                        <a class="nav-link text-white font-weight-bold btn-lg" >Evaluación Diagnóstico</a>
                     </li>
                 </ul>
             </ul>
