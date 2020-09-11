@@ -20,3 +20,15 @@ Route::get('/', function () {
 Route::get('/cuestionario', function () {
     return view('questions');
 });
+
+Route::get('/capacitacion', function () {
+    return view('video');
+});
+
+Route::get('/resultado', function () {
+    return view('results');
+});
+
+Route::get('/download-data', function () {
+    return view('download');
+});
