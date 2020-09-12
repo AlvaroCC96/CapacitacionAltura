@@ -2,7 +2,12 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-8 justify-content-center">
-            <div class="card border-secondary shadow">
+                <div class="card border-secondary shadow">
+                @if (session('alert'))
+                <div class="alert alert-danger">
+                    {{ session('alert') }}
+                </div>
+                @endif
                 <div class="card-header h2 bg-tertiary">
                     <div class="row">
                         <div class="col">
@@ -11,7 +16,8 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form >
+                    <form action="{{action('EvaluationController@saveData')}}" method="POST">
+                    @csrf
                         <!-- Div para la pregunta 1-->
                         <div name="pregunta_1_div" id="pregunta_1_div">
                             <label for="pregunta1" name="pregunta1"> <h4>1.- ¿Que es un SPDC?: (Marque la alternativa
@@ -19,20 +25,20 @@
                             </label><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta1">A:   Es un arnés
+                                    <input type="radio" class="form-check-input" name="pregunta1" value="A">A:   Es un arnés
                                     de cuerpo completo y un conjunto de componentes utilizados para detener una
                                     caída libre.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta1">B:   Es un cinturón de
+                                    <input type="radio" class="form-check-input" name="pregunta1" value="B">B:   Es un cinturón de
                                     seguridad con estrobos de amarre.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta1">C:   Cualquier
+                                    <input type="radio" class="form-check-input" name="pregunta1" value="C">C:   Cualquier
                                     dispositivo o elemento que evite una caída (arnés, andamio, escala).
                                 </label>
                             </div><hr>
@@ -45,19 +51,19 @@
                             </label><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta2">A:   Cualquier trabajo
+                                    <input type="radio" class="form-check-input" name="pregunta2" value="A">A:   Cualquier trabajo
                                     que implique la circulación y uso de escaleras por parte del personal.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta2">B:   Toda labor que se
+                                    <input type="radio" class="form-check-input" name="pregunta2" value="B">B:   Toda labor que se
                                     ejecute sobre 1.80 mts y/o presente riesgo de sufrir una caída libre.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta2">C:   El izaje de
+                                    <input type="radio" class="form-check-input" name="pregunta2" value="C">C:   El izaje de
                                     materiales utilizando “vientos guía”.
                                 </label>
                             </div><hr>
@@ -70,19 +76,19 @@
                             </label><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta3">A:   Es para detención
+                                    <input type="radio" class="form-check-input" name="pregunta3" value="A">A:   Es para detención
                                     de caídas.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta3">B:   Se utiliza
+                                    <input type="radio" class="form-check-input" name="pregunta3" value="B">B:   Se utiliza
                                     solamente con línea de vida metálica.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta3">C:   Tiene una
+                                    <input type="radio" class="form-check-input" name="pregunta3" value="C">C:   Tiene una
                                     capacidad de resistencia a la caída de 100 kg.
                                 </label>
                             </div><hr>
@@ -95,19 +101,19 @@
                             </label><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta4">A:   Por el usuario,
+                                    <input type="radio" class="form-check-input" name="pregunta4" value="A">A:   Por el usuario,
                                     previo a cada utilización y dejando registro escrito de la inspección.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta4">B:   Después de una
+                                    <input type="radio" class="form-check-input" name="pregunta4" value="B">B:   Después de una
                                     caída (solo si se ha activado el sistema de retención).
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta4">C:   Por
+                                    <input type="radio" class="form-check-input" name="pregunta4" value="C">C:   Por
                                     calendarización (cada 6 meses).
                                 </label>
                             </div><hr>
@@ -120,19 +126,19 @@
                             </label><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta5">A:   La limpieza
+                                    <input type="radio" class="form-check-input" name="pregunta5" value="A">A:   La limpieza
                                     “solo” del punto contaminado con petróleo (no utilizar desengrasante).
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta5">B:   Lavarlo solo con
+                                    <input type="radio" class="form-check-input" name="pregunta5" value="B">B:   Lavarlo solo con
                                     agua y jabón, secándolo al aire libre.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta5">C:   No se debe
+                                    <input type="radio" class="form-check-input" name="pregunta5" value="C">C:   No se debe
                                     limpiar, solo mantener en su bolsa de traslado.
                                 </label>
                             </div><hr>
@@ -145,19 +151,19 @@
                             </label><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta6">A:   No es necesario
+                                    <input type="radio" class="form-check-input" name="pregunta6" value="A">A:   No es necesario
                                     re-instruirlo si está certificado para trabajos en altura por Medicina Ocupacional.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta6">B:   Al asignarle un
+                                    <input type="radio" class="form-check-input" name="pregunta6" value="B">B:   Al asignarle un
                                     SPDC diferente al equipo con el que fue entrenado originalmente.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta6">C:   Solo al
+                                    <input type="radio" class="form-check-input" name="pregunta6" value="C">C:   Solo al
                                     efectuar trabajos sobre 1.80 mts.
                                 </label>
                             </div><hr>
@@ -171,18 +177,18 @@
                             </label><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta7">A:   De 2 a 8 minutos.
+                                    <input type="radio" class="form-check-input" name="pregunta7" value="A">A:   De 2 a 8 minutos.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta7">B:   Depende del peso
+                                    <input type="radio" class="form-check-input" name="pregunta7" value="B">B:   Depende del peso
                                     del trabajador, (es inversamente proporcional).
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta7">C:   De 15 a
+                                    <input type="radio" class="form-check-input" name="pregunta7" value="C">C:   De 15 a
                                     30 minutos.
                                 </label>
                             </div><hr>
@@ -195,19 +201,19 @@
                             </label><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta8">A:   Evitar la
+                                    <input type="radio" class="form-check-input" name="pregunta8" value="A">A:   Evitar la
                                     obstrucción de la circulación sanguínea.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta8">B:   Afianzar las
+                                    <input type="radio" class="form-check-input" name="pregunta8" value="B">B:   Afianzar las
                                     herramientas para evitar su caída al vacío.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta8">C:   Si el SPDC
+                                    <input type="radio" class="form-check-input" name="pregunta8" value="C">C:   Si el SPDC
                                     utiliza línea de vida retráctil, no es necesaria su utilización.
                                 </label>
                             </div><hr>
@@ -222,12 +228,12 @@
                             </label><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta9"> VERDADERO.
+                                    <input type="radio" class="form-check-input" name="pregunta9" value="V"> VERDADERO.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta9"> FALSO.
+                                    <input type="radio" class="form-check-input" name="pregunta9" value="F"> FALSO.
                                 </label>
                             </div><hr>
                         </div>
@@ -240,12 +246,12 @@
                             </label><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta10"> VERDADERO.
+                                    <input type="radio" class="form-check-input" name="pregunta10" value="V"> VERDADERO.
                                 </label>
                             </div><br>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="pregunta10"> FALSO.
+                                    <input type="radio" class="form-check-input" name="pregunta10" value="F"> FALSO.
                                 </label>
                             </div><hr>
                         </div>

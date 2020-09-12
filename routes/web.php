@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/cuestionario', function () {
+Route::get('/capacitacion', function () {
     return view('questions');
 });
 /*
@@ -34,3 +34,4 @@ Route::get('/download-data', function () {
 });
 
 Route::post('/capacitacion','UserController@startSession');
+Route::post('/resultado','EvaluationController@saveData');

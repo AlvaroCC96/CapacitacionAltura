@@ -11,7 +11,8 @@
                 </div>
             </div>
             <div class="card-body text-center">
-                    <h4>Puntaje obtenido: {}</h4>
+                    <h4>Puntaje obtenido: {{$contador}}</h4>
+                    <h4>Puntaje total: 10</h4>
             </div>
         </div>
     </div>

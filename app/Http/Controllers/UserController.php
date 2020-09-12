@@ -23,7 +23,8 @@ class UserController extends Controller
 
             $rules = ['rut'=>'required|unique:users',
             'sap'=>'required|unique:users' ];
-
+            
+            $request->rut =$rutFormated;
             $validator = Validator::make($request->all(), $rules);
             
             if ($validator->fails()) {
