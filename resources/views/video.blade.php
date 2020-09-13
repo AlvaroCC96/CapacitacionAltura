@@ -16,10 +16,15 @@
                     frameborder="0" allowfullscreen width="570" height="315" >
                 </iframe>
 
-                <div class="mt-4 text-center">
-                    <a href="/cuestionario" class="btn btn-primary">Continuar</a>
-                </div>
-                
+                <form action="{{action('UserController@videoData')}}" method="POST">
+                        <div class= "form-group">
+                            @csrf
+                            <input type="hidden" name="intid" id="intid" value ="{{$user->id}}" class="form-control" required><br>
+                        </div>
+                        <div class="form-group mt-4 text-center">
+                            <button type="submit" class="btn btn-primary">Continuar</button>
+                        </div>
+                    </form>
             </div>
         </div>
     </div>

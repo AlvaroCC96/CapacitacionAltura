@@ -255,7 +255,7 @@
                                 </label>
                             </div><hr>
                         </div>
-
+                        <input type="hidden" name="intid" id="intid" value ="{{$id}}" class="form-control" required><br>
                         <div class="form-group mt-4 text-center">
                             <button type="submit" class="btn btn-primary">Enviar Respuestas</button>
                         </div>

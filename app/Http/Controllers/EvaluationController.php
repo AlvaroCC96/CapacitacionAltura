@@ -7,83 +7,34 @@ use App\Evaluation;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\DB;
+use Freshwork\ChileanBundle\Rut;
 
 class EvaluationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function dbexcel(Request $request) {
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        try{
+            $rutInput = $request->rut;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Evaluation  $evaluation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Evaluation $evaluation)
-    {
-        //
-    }
+            if (!Rut::parse($rutInput)->isValid()) {
+                return redirect()->back()->with('alert', 'Rut mal ingresado');
+            }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Evaluation  $evaluation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Evaluation $evaluation)
-    {
-        //
-    }
+            $rutFormated = Rut::parse($rutInput)->format(Rut::FORMAT_ESCAPED);
+            $clave = $request->clave;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Evaluation  $evaluation
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Evaluation $evaluation)
-    {
-        //
-    }
+            if ($rutFormated != '94817943' || $clave != '9481JEBH') {
+                return redirect()->back()->with('alert', 'Rut o clave mal ingresada mal ingresado');
+            }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Evaluation  $evaluation
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Evaluation $evaluation)
-    {
-        //
+            //TODO: get library for download data and implement this
+
+
+        } catch (Exception $ex) {
+            return redirect()->back()->with('alert', 'Error en la página');
+        }
+
     }
 
     public function saveData(Request $request){
@@ -98,10 +49,11 @@ class EvaluationController extends Controller
                       'pregunta8'=>'required',
                       'pregunta9'=>'required',
                       'pregunta10'=>'required',
+
              ];
 
             $validator = Validator::make($request->all(), $rules);
-            
+
             if($validator->fails()){
                  // handler errors
                 $erros = $validator->errors();
@@ -117,11 +69,12 @@ class EvaluationController extends Controller
             $pregunta8=$request->input("pregunta8");
             $pregunta9=$request->input("pregunta9");
             $pregunta10=$request->input("pregunta10");
-            
+            $idUser = $request->intid;
+
             $evaluation = DB::table('evaluations')->get()[0];
-            
+
             $contador = 0;
-            
+
             if ($pregunta1 == $evaluation->pregunta1){
                 $contador = $contador +1;
             }
@@ -149,7 +102,7 @@ class EvaluationController extends Controller
             if ($pregunta7 == $evaluation->pregunta7){
                 $contador = $contador +1;
             }
-            
+
             if ($pregunta8 == $evaluation->pregunta8){
                 $contador = $contador +1;
             }
@@ -161,7 +114,17 @@ class EvaluationController extends Controller
             if ($pregunta10 == $evaluation->pregunta10){
                 $contador = $contador +1;
             }
-            
+
+            DB::table('evaluation_user')->insert(
+                array('usr_id' => $idUser,
+                    'tst_id' => $evaluation->id,
+                    'puntaje_obtenido' => $contador,
+                    'puntaje_total_prueba'=>10,
+                    "created_at" =>  \Carbon\Carbon::now(), # new \Datetime()
+                    "updated_at" => \Carbon\Carbon::now(),  # new \Datetime()
+                    )
+            );
+
             return view('results',compact('contador'));
 
         } catch (Exception $ex) {

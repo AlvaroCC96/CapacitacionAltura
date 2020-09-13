@@ -33,16 +33,22 @@ class UserController extends Controller
                 return redirect()->back()->with('alert', 'Error al ingresar datos, RUT o SAP ya fue ingresado anteriormente');
              }
 
-            $academic = User::create( $request->all() );
-            $academic->rut=$rutFormated;
-            $academic->save();
-            return view('video');
+            $user = User::create( $request->all() );
+            $user->rut=$rutFormated;
+            $user->save();
+            return view('video',compact('user'));           
         } catch (Exception $ex) {
             return redirect()->back()->with('alert', 'Error al ingresar datos!');
         } catch (QueryException $ex) {
             return redirect()->rute('users.index')->with('alert', 'Error al ingresar datos!');
         }
 
+    }
+
+    public function videoData(Request $request) {
+        $id =$request->intid;
+
+        return view('questions', compact('id'));
     }
 
     public function index(){

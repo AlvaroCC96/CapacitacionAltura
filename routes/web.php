@@ -17,21 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/capacitacion', function () {
-    return view('questions');
-});
-/*
-Route::get('/capacitacion', function () {
-    return view('video');
-});
-*/
-Route::get('/resultado', function () {
-    return view('results');
-});
 
 Route::get('/download-data', function () {
     return view('download');
 });
 
 Route::post('/capacitacion','UserController@startSession');
+Route::post('/capacitacion1','UserController@videoData');
 Route::post('/resultado','EvaluationController@saveData');
+
+Route::post('/data1','EvaluationController@dbexcel');
