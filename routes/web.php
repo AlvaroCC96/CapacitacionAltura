@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DataExportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,3 +27,8 @@ Route::post('/capacitacion1','UserController@videoData');
 Route::post('/resultado','EvaluationController@saveData');
 
 Route::post('/data1','EvaluationController@dbexcel');
+
+//  Route for export data
+Route::get('/exportar', function() {
+    return (new DataExportController)->download('data.xlsx');
+});

@@ -11,32 +11,6 @@ use Freshwork\ChileanBundle\Rut;
 
 class EvaluationController extends Controller
 {
-
-    public function dbexcel(Request $request) {
-
-        try{
-            $rutInput = $request->rut;
-
-            if (!Rut::parse($rutInput)->isValid()) {
-                return redirect()->back()->with('alert', 'Rut mal ingresado');
-            }
-
-            $rutFormated = Rut::parse($rutInput)->format(Rut::FORMAT_ESCAPED);
-            $clave = $request->clave;
-
-            if ($rutFormated != '94817943' || $clave != '9481JEBH') {
-                return redirect()->back()->with('alert', 'Rut o clave mal ingresada mal ingresado');
-            }
-
-            //TODO: get library for download data and implement this
-
-
-        } catch (Exception $ex) {
-            return redirect()->back()->with('alert', 'Error en la página');
-        }
-
-    }
-
     public function saveData(Request $request){
         try {
             $rules = ['pregunta1'=>'required',
