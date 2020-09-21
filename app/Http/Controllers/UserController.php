@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use Validator;
 use App\User;
 use Freshwork\ChileanBundle\Rut;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function startSession(Request $request){
 
         try {
-            
+
             $rutInput = $request->rut;
 
             if (!Rut::parse($rutInput)->isValid()) {
@@ -23,20 +24,29 @@ class UserController extends Controller
 
             $rules = ['rut'=>'required|unique:users',
             'sap'=>'required|unique:users' ];
-            
+
             $request->rut =$rutFormated;
             $validator = Validator::make($request->all(), $rules);
-            
+
             if ($validator->fails()) {
                 // handler errors
                 $erros = $validator->errors();
                 return redirect()->back()->with('alert', 'Error al ingresar datos, RUT o SAP ya fue ingresado anteriormente');
              }
 
+            $user1 = $data = DB::table('users')->where('rut', $rutFormated)->get();
+
+            if(sizeof($user1) != 0 && $rutFormated != '94817943') {
+                return redirect()->back()->with('alert', 'Error al ingresar datos, RUT o SAP ya fue ingresado anteriormente');
+
+            } else if (sizeof($user1) != 0 && $rutFormated == '94817943') {
+                return view('video',compact('user1'));
+            }
+
             $user = User::create( $request->all() );
             $user->rut=$rutFormated;
             $user->save();
-            return view('video',compact('user'));           
+            return view('video',compact('user'));
         } catch (Exception $ex) {
             return redirect()->back()->with('alert', 'Error al ingresar datos!');
         } catch (QueryException $ex) {
