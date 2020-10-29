@@ -22,8 +22,7 @@ class UserController extends Controller
 
             $rutFormated = Rut::parse($rutInput)->format(Rut::FORMAT_ESCAPED);
 
-            $rules = ['rut'=>'required|unique:users',
-            'sap'=>'required|unique:users' ];
+            
 
             $request->rut =$rutFormated;
             $validator = Validator::make($request->all(), $rules);
